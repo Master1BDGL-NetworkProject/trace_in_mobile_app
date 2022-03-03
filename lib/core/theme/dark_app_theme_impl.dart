@@ -36,6 +36,8 @@ class DarkAppTheme implements IAppTheme {
           error: AppColors.lightOrange,
           primary: AppColors.lightBlack,
           secondary: AppColors.darkBlue,
+          primaryContainer: AppColors.darkBlue,
+          tertiary: AppColors.white,
           secondaryContainer: AppColors.lightOrange));
 
   @override

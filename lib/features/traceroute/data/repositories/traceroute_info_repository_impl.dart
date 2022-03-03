@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 
+import '../../../../core/utils/query_string.dart';
 import '../../domain/entities/traceroute_info.dart';
 import '../../domain/repositories/traceroute_info_repository_interface.dart';
-import '../../domain/usescases/params/get_traceroute_info_params.dart';
 import '../datasources/remote_data_sources/remote_traceroute_info_datasource_interface.dart';
 
 class TracerouteInfoRepositoryImpl implements ITracerouteInfoRepository {
@@ -13,7 +13,7 @@ class TracerouteInfoRepositoryImpl implements ITracerouteInfoRepository {
 
   @override
   Future<Either<Exception, List<TracerouteInfo>>> getTracerouteInfo(
-      GetTracerouteInfoParams params) {
+      QueryString params) {
     return _iRemoteTracerouteInfoDatasource.getTracerouteInfo(params);
   }
 

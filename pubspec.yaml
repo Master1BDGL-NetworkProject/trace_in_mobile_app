@@ -40,6 +40,7 @@ dependencies:
   mockito: ^5.1.0
   http: ^0.13.4
   dartz: ^0.10.1
+  get_it: ^7.2.0
 
 dev_dependencies:
   flutter_test:
@@ -69,6 +70,8 @@ flutter:
   assets:
     - assets/images/drawable-xhdpi/
     - assets/images/drawable-ldpi/
+    - assets/images/drawable-hdpi/
+    - assets/images/drawable-mdpi/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

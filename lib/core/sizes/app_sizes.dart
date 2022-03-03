@@ -6,5 +6,6 @@ class AppSizes {
   static const double button1 = 15;
 
   static const double buttonRadius = 25;
+  static const double buttonRadius2 = 7;
   static const double actionRadius = 50;
 }

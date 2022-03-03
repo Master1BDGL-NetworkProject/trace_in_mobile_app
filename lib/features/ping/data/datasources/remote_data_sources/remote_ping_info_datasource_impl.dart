@@ -5,8 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../../../core/utils/api_urls.dart';
+import '../../../../../core/utils/query_string.dart';
 import '../../../domain/entities/ping_info.dart';
-import '../../../domain/usescases/params/get_ping_info_params.dart';
 import '../../factories/ping_info_factory.dart';
 import 'remote_ping_info_datasource_interface.dart';
 
@@ -18,7 +18,7 @@ class RemotePingInfoDatasourceImpl implements IRemotePingInfoDatasource {
 
   @override
   Future<Either<Exception, List<PingInfo>>> getPingInfo(
-      GetPingInfoParams params) async {
+      QueryString params) async {
     try {
       final _response = await _client
           .get(Uri.parse('${_apiUrls.pingUrl}?${params.toQueryString()}'));

@@ -8,10 +8,12 @@ enum ActionType { ping, traceroute }
 class ActionWidget extends StatelessWidget {
   final ActionType _actionType;
   final String actionName;
+  final Function() onPressed;
   final String description;
 
   const ActionWidget(
       {Key? key,
+      required this.onPressed,
       required this.description,
       required ActionType actionType,
       required this.actionName})
@@ -20,34 +22,37 @@ class ActionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(15),
-      decoration: BoxDecoration(
-          color: Theme.of(context).primaryColor,
-          borderRadius: BorderRadius.circular(AppSizes.buttonRadius)),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image(image: AssetImage(_getImagePath(_actionType))),
-          const SizedBox(
-            height: 5,
-          ),
-          Text(
-            actionName,
-            style: Theme.of(context)
-                .textTheme
-                .headlineMedium!
-                .copyWith(fontSize: AppSizes.header2),
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          Text(
-            description,
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.bodySmall,
-          )
-        ],
+    return InkWell(
+      onTap: onPressed,
+      child: Ink(
+        padding: const EdgeInsets.all(15),
+        decoration: BoxDecoration(
+            color: Theme.of(context).primaryColor,
+            borderRadius: BorderRadius.circular(AppSizes.buttonRadius)),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image(image: AssetImage(_getImagePath(_actionType))),
+            const SizedBox(
+              height: 5,
+            ),
+            Text(
+              actionName,
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineMedium!
+                  .copyWith(fontSize: AppSizes.header2),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            Text(
+              description,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.bodySmall,
+            )
+          ],
+        ),
       ),
     );
   }

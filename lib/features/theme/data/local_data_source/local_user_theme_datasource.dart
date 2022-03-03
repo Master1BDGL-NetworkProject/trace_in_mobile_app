@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import '../../../../exceptions/sucess_operation/success_operation.dart';
+import '../../../../core/exceptions/sucess_operation/success_operation.dart';
 import '../../domain/entities/user_theme.dart';
 import '../../domain/usescases/params/change_user_theme_params.dart';
 import 'local_user_theme_datasource_interface.dart';

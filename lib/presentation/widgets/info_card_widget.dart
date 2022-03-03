@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../core/theme/app_colors.dart';
+import '../../core/assets/app_assets.dart';
 
 class InfoCardWidget extends StatelessWidget {
   final String label;
@@ -12,12 +12,29 @@ class InfoCardWidget extends StatelessWidget {
       margin: const EdgeInsets.only(top: 10),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: AppColors.lightOrange,
+        boxShadow: [
+          BoxShadow(
+              offset: const Offset(0, 2),
+              color: Theme.of(context).scaffoldBackgroundColor)
+        ],
+        color: Theme.of(context).colorScheme.primaryContainer,
       ),
-      child: Text(
-        label,
-        textAlign: TextAlign.justify,
-        style: Theme.of(context).textTheme.bodySmall,
+      child: Row(
+        children: [
+          const Image(image: AssetImage(AppAssets.lampImage)),
+          const SizedBox(
+            width: 7,
+          ),
+          Expanded(
+            child: Text(
+              label,
+              textAlign: TextAlign.justify,
+              style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                  fontSize: 12.5,
+                  color: Theme.of(context).colorScheme.tertiary),
+            ),
+          ),
+        ],
       ),
     );
   }

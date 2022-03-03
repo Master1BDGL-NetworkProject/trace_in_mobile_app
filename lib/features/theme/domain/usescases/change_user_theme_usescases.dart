@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 
+import '../../../../core/exceptions/sucess_operation/success_operation.dart';
 import '../../../../core/utils/usescases.dart';
-import '../../../../exceptions/sucess_operation/success_operation.dart';
 import '../../data/local_data_source/local_user_theme_datasource_interface.dart';
 import 'params/change_user_theme_params.dart';
 
