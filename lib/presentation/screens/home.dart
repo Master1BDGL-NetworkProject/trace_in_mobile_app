@@ -16,9 +16,11 @@ class Home extends ConsumerWidget {
     return Scaffold(
       appBar: _buildAppBar(context, ref),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(25),
-          child: _buildColumnItems(context),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(25),
+            child: _buildColumnItems(context),
+          ),
         ),
       ),
     );

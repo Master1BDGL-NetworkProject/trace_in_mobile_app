@@ -31,6 +31,7 @@ class InfoCardWidget extends StatelessWidget {
               textAlign: TextAlign.justify,
               style: Theme.of(context).textTheme.bodySmall!.copyWith(
                   fontSize: 12.5,
+                  height: 1.15,
                   color: Theme.of(context).colorScheme.tertiary),
             ),
           ),

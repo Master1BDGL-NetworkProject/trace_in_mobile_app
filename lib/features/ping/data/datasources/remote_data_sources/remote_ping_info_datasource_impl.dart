@@ -22,7 +22,6 @@ class RemotePingInfoDatasourceImpl implements IRemotePingInfoDatasource {
     try {
       final _response = await _client
           .get(Uri.parse('${_apiUrls.pingUrl}?${params.toQueryString()}'));
-
       if (_response.statusCode == 200) {
         // Extract response
         final _pingInfos = (json.decode(_response.body)['data'] as List)

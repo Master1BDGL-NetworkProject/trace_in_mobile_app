@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
+  static const errorColor = Colors.red;
   static const lightGrey = Color.fromARGB(255, 245, 245, 245);
   static const white = Colors.white;
   static final lightBlue = const Color(0xFFB1D5F1).withOpacity(.15);

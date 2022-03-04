@@ -1,55 +1,61 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:trace_in_mobile_app/features/traceroute/domain/entities/traceroute_info.dart';
+import 'package:trace_in_mobile_app/features/traceroute/domain/usescases/get_traceroute_info_usescase.dart';
+import 'package:trace_in_mobile_app/features/traceroute/domain/usescases/params/get_traceroute_info_params.dart';
 
 import '../../../../core/utils/text_field_validators.dart';
 import '../../../../dependency_inversion.dart';
 import '../../../../presentation/widgets/button/button_widget.dart';
 import '../../../../presentation/widgets/form/custom_text_field_widget.dart';
 import '../../../../presentation/widgets/info_card_widget.dart';
-import '../../domain/entities/ping_info.dart';
-import '../../domain/usescases/get_ping_info_usescase.dart';
-import '../../domain/usescases/params/get_ping_info_params.dart';
-import 'ping_info_results_table.dart';
+import '../../../ping/domain/entities/ping_info.dart';
+import '../../../ping/domain/usescases/get_ping_info_usescase.dart';
+import '../../../ping/domain/usescases/params/get_ping_info_params.dart';
+import '../../../ping/presentation/screens/ping_info_results_table.dart';
 
-class PingForm extends StatefulWidget {
-  const PingForm({Key? key}) : super(key: key);
+class TracerouteForm extends StatefulWidget {
+  const TracerouteForm({Key? key}) : super(key: key);
 
   @override
-  State<PingForm> createState() => _PingFormState();
+  State<TracerouteForm> createState() => _TracerouteFormState();
 }
 
-class _PingFormState extends State<PingForm> {
+class _TracerouteFormState extends State<TracerouteForm> {
   late final TextEditingController _hostController;
-  late final TextEditingController _numberOfPaquetsController;
-  late final TextEditingController _ttlController;
-  late final TextEditingController _packetSizeController;
+  late final TextEditingController _numberOfHoublonsController;
   late final TextEditingController _timeOutController;
+  late final Protocol _currentProtocolSelected;
 
   late final GlobalKey<FormState> _formKey;
 
-  late final List<TextEditingController> _fieldsControllers;
+  late final StreamController<Protocol> _protocolStatusController;
 
   @override
   void initState() {
     super.initState();
 
+    _currentProtocolSelected = Protocol.icmp;
+
     _formKey = GlobalKey();
+    _protocolStatusController = StreamController.broadcast();
 
     /// Init TextEdditingController
     _hostController = TextEditingController();
-    _numberOfPaquetsController = TextEditingController();
-    _ttlController = TextEditingController();
-    _packetSizeController = TextEditingController();
+    _numberOfHoublonsController = TextEditingController();
     _timeOutController = TextEditingController();
+  }
 
-    _fieldsControllers = [];
+  @override
+  void dispose() {
+    _protocolStatusController.close();
 
-    _fieldsControllers.addAll([
-      _hostController,
-      _numberOfPaquetsController,
-      _ttlController,
-      _packetSizeController,
-      _timeOutController
-    ]);
+    _hostController.dispose();
+    _numberOfHoublonsController.dispose();
+    _timeOutController.dispose();
+
+    super.dispose();
   }
 
   @override
@@ -68,12 +74,12 @@ class _PingFormState extends State<PingForm> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Ping',
+                      'Traceroute',
                       style: Theme.of(context).textTheme.headlineMedium,
                     ),
                     const InfoCardWidget(
                         label:
-                            "Le ping permet de déterminer l'état du réseau et de divers hôtes étrangers ou simplement permet de verifier l'existence d'une machine sur un reseau"),
+                            "Le traceroute permet de déterminer l'état du réseau et de divers hôtes étrangers ou simplement permet de verifier l'existence d'une machine sur un reseau"),
                     const SizedBox(
                       height: 25,
                     ),
@@ -151,33 +157,24 @@ class _PingFormState extends State<PingForm> {
           child: CustomTextFieldWidget(
               validator: TextFieldValidators.isNumber,
               textInputType: TextInputType.number,
-              textEditingController: _numberOfPaquetsController,
-              label: 'N°. packets',
-              placeholder: 'ex: 15, 25'),
+              textEditingController: _numberOfHoublonsController,
+              label: 'N°. houblons',
+              placeholder: 'ex: 30'),
         ),
         const SizedBox(
           width: 5,
         ),
         Expanded(
           flex: 1,
-          child: CustomTextFieldWidget(
-              validator: TextFieldValidators.isNumber,
-              textInputType: TextInputType.number,
-              textEditingController: _ttlController,
-              label: 'TTL',
-              placeholder: 'ex: 21'),
-        ),
-        const SizedBox(
-          width: 5,
-        ),
-        Expanded(
-          flex: 2,
-          child: CustomTextFieldWidget(
-              validator: TextFieldValidators.isNumber,
-              textInputType: TextInputType.number,
-              textEditingController: _packetSizeController,
-              label: 'N°. packets',
-              placeholder: 'ex: 28'),
+          child: StreamBuilder<Protocol>(
+              stream: _protocolStatusController.stream,
+              initialData: Protocol.icmp,
+              builder: (context, protocol) {
+                return CustomTextFieldWidget2(
+                    currentProtocolSelected: protocol.data!,
+                    label: 'Protocol',
+                    onPressed: _handleProtocolChoice);
+              }),
         ),
       ],
     );
@@ -187,25 +184,30 @@ class _PingFormState extends State<PingForm> {
     _timeOutController.clear();
   }
 
+  void _handleProtocolChoice(Protocol? protocol) {
+    _currentProtocolSelected = protocol!;
+  }
+
   void _handleTriggerPing() async {
     if (_formKey.currentState!.validate()) {
       // Retrieve values
-      final _params = GetPingInfoParams(
+      final _params = GetTracerouteInfoParams(
+          protocol: _currentProtocolSelected,
           host: _hostController.text,
-          packetSize: int.tryParse(_packetSizeController.text) ?? 40,
-          packetsNu: int.tryParse(_numberOfPaquetsController.text) ?? 5,
-          timeOut: int.tryParse(_timeOutController.text) ?? 2000,
-          ttl: int.tryParse(_ttlController.text) ?? 21);
+          hopsMaxNumber: int.tryParse(_numberOfHoublonsController.text) ?? 5,
+          timeOut: int.tryParse(_timeOutController.text) ?? 2000);
 
-      final _result = (await getIt.get<GetPingInfoUsescase>().trigger(_params))
-          .fold((error) => error, (pingInfos) => pingInfos);
+      final _result =
+          (await getIt.get<GetTracerouteInfoUsescase>().trigger(_params))
+              .fold((error) => error, (_tracerouteInfos) => _tracerouteInfos);
       debugPrint(_result.toString());
-      if (_result is List<PingInfo>) {
-        showModalBottomSheet(
-            context: context,
-            builder: (_) => PingInfoResultsTable(
-                  pingInfos: _result,
-                ));
+      if (_result is List<TracerouteInfo>) {
+        ///TODO
+        // showModalBottomSheet(
+        //     context: context,
+        //     builder: (_) => PingInfoResultsTable(
+        //           pingInfos: _result,
+        //         ));
       }
     }
   }
