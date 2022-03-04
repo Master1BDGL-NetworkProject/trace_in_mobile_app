@@ -26,7 +26,7 @@ class _TracerouteFormState extends State<TracerouteForm> {
   late final TextEditingController _hostController;
   late final TextEditingController _numberOfHoublonsController;
   late final TextEditingController _timeOutController;
-  late final Protocol _currentProtocolSelected;
+  late Protocol _currentProtocolSelected;
 
   late final GlobalKey<FormState> _formKey;
 
@@ -186,6 +186,7 @@ class _TracerouteFormState extends State<TracerouteForm> {
 
   void _handleProtocolChoice(Protocol? protocol) {
     _currentProtocolSelected = protocol!;
+    _protocolStatusController.add(_currentProtocolSelected);
   }
 
   void _handleTriggerPing() async {
