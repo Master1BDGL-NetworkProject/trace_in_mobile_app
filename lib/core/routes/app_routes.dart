@@ -12,6 +12,7 @@ class AppRoutes {
     };
   }
 
-  static goToPing(BuildContext context) =>
-      Navigator.pushReplacementNamed(context, AppRoutePath.pageSwitcherpath);
+  static goToScreen(BuildContext context, int index) =>
+      Navigator.pushReplacementNamed(context, AppRoutePath.pageSwitcherpath,
+          arguments: index);
 }

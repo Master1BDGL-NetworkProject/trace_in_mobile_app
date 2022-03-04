@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/utils/info_results_interface.dart';
 import '../../domain/entities/ping_info.dart';
 
-class PingInfoResultsTable extends StatelessWidget {
+class PingInfoResultsTable extends StatelessWidget
+    implements IInfoResults<PingInfo> {
   final List<PingInfo> pingInfos;
   const PingInfoResultsTable({Key? key, required this.pingInfos})
       : super(key: key);
 
-  List<DataColumn> _getDataColumns(BuildContext context) {
+  @override
+  List<DataColumn> getDataColumns(BuildContext context) {
     return [
       DataColumn(
           label: Text(
@@ -53,15 +56,14 @@ class PingInfoResultsTable extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                     color: Theme.of(context).colorScheme.tertiary)),
           ),
-          DataTable(
-              columns: _getDataColumns(context),
-              rows: _mapPinfosToDataRow(pingInfos, context)),
+          buildDataTable(context)
         ],
       ),
     );
   }
 
-  List<DataRow> _mapPinfosToDataRow(
+  @override
+  List<DataRow> mapPinfosToDataRow(
       List<PingInfo> pingInfos, BuildContext context) {
     return pingInfos
         .map((_pingInfo) => DataRow(
@@ -107,5 +109,12 @@ class PingInfoResultsTable extends StatelessWidget {
                   )),
                 ]))
         .toList();
+  }
+
+  @override
+  Widget buildDataTable(BuildContext context) {
+    return DataTable(
+        columns: getDataColumns(context),
+        rows: mapPinfosToDataRow(pingInfos, context));
   }
 }

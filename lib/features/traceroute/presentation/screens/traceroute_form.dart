@@ -1,19 +1,16 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:trace_in_mobile_app/features/traceroute/domain/entities/traceroute_info.dart';
-import 'package:trace_in_mobile_app/features/traceroute/domain/usescases/get_traceroute_info_usescase.dart';
-import 'package:trace_in_mobile_app/features/traceroute/domain/usescases/params/get_traceroute_info_params.dart';
 
 import '../../../../core/utils/text_field_validators.dart';
 import '../../../../dependency_inversion.dart';
 import '../../../../presentation/widgets/button/button_widget.dart';
 import '../../../../presentation/widgets/form/custom_text_field_widget.dart';
 import '../../../../presentation/widgets/info_card_widget.dart';
-import '../../../ping/domain/entities/ping_info.dart';
-import '../../../ping/domain/usescases/get_ping_info_usescase.dart';
-import '../../../ping/domain/usescases/params/get_ping_info_params.dart';
-import '../../../ping/presentation/screens/ping_info_results_table.dart';
+import '../../domain/entities/traceroute_info.dart';
+import '../../domain/usescases/get_traceroute_info_usescase.dart';
+import '../../domain/usescases/params/get_traceroute_info_params.dart';
+import 'traceroute_info_results_table.dart';
 
 class TracerouteForm extends StatefulWidget {
   const TracerouteForm({Key? key}) : super(key: key);
@@ -79,7 +76,7 @@ class _TracerouteFormState extends State<TracerouteForm> {
                     ),
                     const InfoCardWidget(
                         label:
-                            "Le traceroute permet de déterminer l'état du réseau et de divers hôtes étrangers ou simplement permet de verifier l'existence d'une machine sur un reseau"),
+                            "Le traceroute permet de connaitre l'itineraire emprunter par un paquet pour atteindre sa destination. Il trouvera les differents machines intermediaire du circuit"),
                     const SizedBox(
                       height: 25,
                     ),
@@ -113,7 +110,7 @@ class _TracerouteFormState extends State<TracerouteForm> {
           textInputType: TextInputType.number,
           textEditingController: _timeOutController,
           label: 'Temps mort',
-          placeholder: 'Temps mort en ms'),
+          placeholder: 'Temps mort en seconde'),
       const SizedBox(
         height: 25,
       ),
@@ -203,12 +200,11 @@ class _TracerouteFormState extends State<TracerouteForm> {
               .fold((error) => error, (_tracerouteInfos) => _tracerouteInfos);
       debugPrint(_result.toString());
       if (_result is List<TracerouteInfo>) {
-        ///TODO
-        // showModalBottomSheet(
-        //     context: context,
-        //     builder: (_) => PingInfoResultsTable(
-        //           pingInfos: _result,
-        //         ));
+        showModalBottomSheet(
+            context: context,
+            builder: (_) => TracerouteInfoResultsTable(
+                  tracerouteInfos: _result,
+                ));
       }
     }
   }

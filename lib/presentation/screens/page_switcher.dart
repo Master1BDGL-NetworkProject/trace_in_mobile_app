@@ -23,6 +23,7 @@ class PageSwitcher extends ConsumerStatefulWidget {
 
 class _PageSwitcherState extends ConsumerState<PageSwitcher> {
   late final StreamController<int> _screenConroller;
+  late int _pageIndex;
 
   @override
   void initState() {
@@ -38,12 +39,14 @@ class _PageSwitcherState extends ConsumerState<PageSwitcher> {
 
   @override
   Widget build(BuildContext context) {
+    _pageIndex = ModalRoute.of(context)?.settings.arguments as int;
+
     return Scaffold(
       appBar: _buildAppBar(context, ref),
-      bottomNavigationBar: _buildBottomNavigationBar(context),
+      bottomNavigationBar: _buildBottomNavigationBar(context, _pageIndex),
       body: StreamBuilder<int>(
           stream: _screenConroller.stream,
-          initialData: 0,
+          initialData: _pageIndex,
           builder: (context, screenStatus) {
             return _buildViews(screenStatus.data!);
           }),
@@ -104,7 +107,7 @@ class _PageSwitcherState extends ConsumerState<PageSwitcher> {
     }
   }
 
-  Container _buildBottomNavigationBar(BuildContext context) {
+  Container _buildBottomNavigationBar(BuildContext context, int pageIndex) {
     return Container(
         margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 2),
@@ -114,7 +117,7 @@ class _PageSwitcherState extends ConsumerState<PageSwitcher> {
             borderRadius: BorderRadius.circular(25)),
         child: StreamBuilder<int>(
             stream: _screenConroller.stream,
-            initialData: 0,
+            initialData: pageIndex,
             builder: (context, screenStatus) {
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,

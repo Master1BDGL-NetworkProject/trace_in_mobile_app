@@ -176,7 +176,7 @@ class _PingFormState extends State<PingForm> {
               validator: TextFieldValidators.isNumber,
               textInputType: TextInputType.number,
               textEditingController: _packetSizeController,
-              label: 'N°. packets',
+              label: 'Taille Paquet',
               placeholder: 'ex: 28'),
         ),
       ],
@@ -184,7 +184,7 @@ class _PingFormState extends State<PingForm> {
   }
 
   void _handleReset() {
-    _timeOutController.clear();
+    _formKey.currentState!.reset();
   }
 
   void _handleTriggerPing() async {

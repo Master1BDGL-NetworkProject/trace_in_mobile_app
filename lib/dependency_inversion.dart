@@ -1,18 +1,23 @@
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart';
-import 'package:trace_in_mobile_app/core/utils/api_urls.dart';
-import 'package:trace_in_mobile_app/features/ping/data/repositories/ping_info_repository_impl.dart';
-import 'package:trace_in_mobile_app/features/ping/domain/repositories/ping_info_repository_interface.dart';
-import 'package:trace_in_mobile_app/features/ping/domain/usescases/get_ping_info_usescase.dart';
 
+import 'core/utils/api_urls.dart';
 import 'features/ping/data/datasources/remote_data_sources/remote_ping_info_datasource_impl.dart';
 import 'features/ping/data/datasources/remote_data_sources/remote_ping_info_datasource_interface.dart';
+import 'features/ping/data/repositories/ping_info_repository_impl.dart';
+import 'features/ping/domain/repositories/ping_info_repository_interface.dart';
+import 'features/ping/domain/usescases/get_ping_info_usescase.dart';
 import 'features/theme/data/local_data_source/local_user_theme_datasource.dart';
 import 'features/theme/data/local_data_source/local_user_theme_datasource_interface.dart';
 import 'features/theme/domain/entities/user_theme.dart';
 import 'features/theme/domain/usescases/change_user_theme_usescases.dart';
 import 'features/theme/domain/usescases/get_user_theme_usescases.dart';
+import 'features/traceroute/data/datasources/remote_data_sources/remote_traceroute_info_datasource_impl.dart';
+import 'features/traceroute/data/datasources/remote_data_sources/remote_traceroute_info_datasource_interface.dart';
+import 'features/traceroute/data/repositories/traceroute_info_repository_impl.dart';
+import 'features/traceroute/domain/repositories/traceroute_info_repository_interface.dart';
+import 'features/traceroute/domain/usescases/get_traceroute_info_usescase.dart';
 
 final getIt = GetIt.instance;
 
@@ -33,7 +38,7 @@ Future<void> setupDI() async {
   getIt.registerLazySingleton<ChangeUserThemeUsecases>(
       () => ChangeUserThemeUsecases(getIt()));
 
-  /// Ping dependency
+  /// Ping dependencies
   getIt.registerLazySingleton<Client>(() => Client());
   getIt.registerLazySingleton<IApiUrls>(() => ApiUrlImpl());
   getIt.registerLazySingleton<IRemotePingInfoDatasource>(
@@ -44,4 +49,14 @@ Future<void> setupDI() async {
   /// Usecases
   getIt.registerLazySingleton<GetPingInfoUsescase>(
       () => GetPingInfoUsescase(getIt()));
+
+  // Traceroute dependencies
+  getIt.registerLazySingleton<IRemoteTracerouteInfoDatasource>(
+      () => RemoteTracerouteInfoDatasourceImpl(getIt(), getIt()));
+  getIt.registerLazySingleton<ITracerouteInfoRepository>(() =>
+      TracerouteInfoRepositoryImpl(remoteTracerouteInfoRepository: getIt()));
+
+  /// Usecases
+  getIt.registerLazySingleton<GetTracerouteInfoUsescase>(
+      () => GetTracerouteInfoUsescase(getIt()));
 }
