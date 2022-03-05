@@ -6,10 +6,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/assets/app_assets.dart';
 import '../../core/theme/app_colors.dart';
+import '../../core/utils/theme_helper.dart';
 import '../../features/ping/presentation/screens/ping_form.dart';
 import '../../features/traceroute/presentation/screens/traceroute_form.dart';
 import '../riverpod_providers/theme_provider/theme_provider.dart';
 import '../widgets/extra_button_widget.dart';
+import '../widgets/functions/show_dialog_modal.dart';
 import '../widgets/navigation_bar/navigation_bar_item_widget.dart';
 
 class PageSwitcher extends ConsumerStatefulWidget {
@@ -74,26 +76,14 @@ class _PageSwitcherState extends ConsumerState<PageSwitcher> {
                 activeThumbImage: const AssetImage(AppAssets.darkModeImage),
                 value: _isDark,
                 activeColor: AppColors.lightOrange,
-                onChanged: (_) => _handleSwitchTheme(_, ref));
+                onChanged: (_) => ThemeHelper.handleSwitchTheme(_, ref));
           },
         ),
         IconButton(
-            onPressed: _handleAbout,
+            onPressed: () => handleAbout(context),
             icon: const ExtraButtonWidget(iconPath: AppAssets.aboutImage))
       ],
     );
-  }
-
-  void _handleAbout() {
-    //TODO
-  }
-
-  void _handleSwitchTheme(bool currentValue, WidgetRef ref) {
-    if (currentValue) {
-      ref.read(themeProvider.notifier).switchDarkTheme();
-    } else {
-      ref.read(themeProvider.notifier).switchLightTheme();
-    }
   }
 
   Widget _buildViews(int index) {

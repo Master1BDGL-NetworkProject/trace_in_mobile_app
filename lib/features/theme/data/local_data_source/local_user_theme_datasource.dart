@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive/hive.dart';
 
 import '../../../../core/exceptions/sucess_operation/success_operation.dart';
 import '../../domain/entities/user_theme.dart';
