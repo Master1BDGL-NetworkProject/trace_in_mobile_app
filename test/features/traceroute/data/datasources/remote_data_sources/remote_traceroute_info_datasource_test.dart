@@ -1,10 +1,12 @@
 import 'dart:convert';
 
+import 'package:data_connection_checker_tv/data_connection_checker.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 import 'package:trace_in_mobile_app/core/utils/api_urls.dart';
+import 'package:trace_in_mobile_app/core/utils/network_info/network_info_impl.dart';
 import 'package:trace_in_mobile_app/features/traceroute/data/datasources/remote_data_sources/remote_traceroute_info_datasource_impl.dart';
 import 'package:trace_in_mobile_app/features/traceroute/data/repositories/traceroute_info_repository_impl.dart';
 import 'package:trace_in_mobile_app/features/traceroute/domain/entities/traceroute_info.dart';
@@ -23,8 +25,10 @@ void main() {
     _apiUrl = ApiUrlImpl();
 
     _tracerouteInfoRepository = TracerouteInfoRepositoryImpl(
-        remoteTracerouteInfoRepository:
-            RemoteTracerouteInfoDatasourceImpl(_httpClient, _apiUrl));
+        remoteTracerouteInfoRepository: RemoteTracerouteInfoDatasourceImpl(
+            _httpClient,
+            _apiUrl,
+            NetWorkInfoImpl(dataConnectionChecker: DataConnectionChecker())));
   });
 
   tearDownAll(() {
@@ -56,8 +60,10 @@ void main() {
     _httpClient = http.Client();
     _apiUrl = ApiUrlImpl();
     _iTracerouteRepository = TracerouteInfoRepositoryImpl(
-        remoteTracerouteInfoRepository:
-            RemoteTracerouteInfoDatasourceImpl(_httpClient, _apiUrl));
+        remoteTracerouteInfoRepository: RemoteTracerouteInfoDatasourceImpl(
+            _httpClient,
+            _apiUrl,
+            NetWorkInfoImpl(dataConnectionChecker: DataConnectionChecker())));
 
     final _params = GetTracerouteInfoParams(
       host: 'google.com',

@@ -2,10 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
+import '../../../../core/exceptions/network/no_connection_exception.dart';
 import '../../../../core/utils/text_field_validators.dart';
 import '../../../../dependency_inversion.dart';
 import '../../../../presentation/widgets/button/button_widget.dart';
 import '../../../../presentation/widgets/form/custom_text_field_widget.dart';
+import '../../../../presentation/widgets/functions/show_snackbar.dart';
 import '../../../../presentation/widgets/info_card_widget.dart';
 import '../../domain/entities/traceroute_info.dart';
 import '../../domain/usescases/get_traceroute_info_usescase.dart';
@@ -205,6 +207,8 @@ class _TracerouteFormState extends State<TracerouteForm> {
             builder: (_) => TracerouteInfoResultsTable(
                   tracerouteInfos: _result,
                 ));
+      } else if (_result is NoConnectionException) {
+        showNetworkErrorSnackBar(context);
       }
     }
   }
