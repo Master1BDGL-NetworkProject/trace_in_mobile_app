@@ -1,4 +1,4 @@
-package com.example.trace_in_mobile_app
+package com.example.play_circle_app
 
 import io.flutter.embedding.android.FlutterActivity
 

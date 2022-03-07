@@ -24,21 +24,15 @@ class TracerouteInfoResultsTable extends StatelessWidget
         style:
             Theme.of(context).textTheme.headlineMedium!.copyWith(fontSize: 13),
       )),
-      // DataColumn(
-      //     label: Text(
-      //   'Time 1(ms)',
-      //   style:
-      //       Theme.of(context).textTheme.headlineMedium!.copyWith(fontSize: 13),
-      // )),
       DataColumn(
           label: Text(
-        'Time 2(ms)',
+        'Time 1(ms)',
         style:
             Theme.of(context).textTheme.headlineMedium!.copyWith(fontSize: 13),
       )),
       DataColumn(
           label: Text(
-        'Time 3(ms)',
+        'Time 2(ms)',
         style:
             Theme.of(context).textTheme.headlineMedium!.copyWith(fontSize: 13),
       )),
@@ -71,7 +65,7 @@ class TracerouteInfoResultsTable extends StatelessWidget
   @override
   List<DataRow> mapPinfosToDataRow(
       List<TracerouteInfo> tracerouteInfos, BuildContext context) {
-    int _index = -1;
+    int _index = 0;
     // debugPrint(tracerouteInfos[0].packetTime[0].toString());
     return tracerouteInfos.map((_tracerouteInfo) {
       _index++;
@@ -97,20 +91,14 @@ class TracerouteInfoResultsTable extends StatelessWidget
                   fontSize:
                       Theme.of(context).textTheme.bodyMedium!.fontSize! - 2),
             )),
-            // DataCell(Text(
-            //   _tracerouteInfo.packetTime[0].toString().toString(),
-            //   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-            //       fontSize:
-            //           Theme.of(context).textTheme.bodyMedium!.fontSize! - 2),
-            // )),
             DataCell(Text(
-              _tracerouteInfo.packetTime[1].toString(),
+              _tracerouteInfo.packetTime[0].toString().toString(),
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   fontSize:
                       Theme.of(context).textTheme.bodyMedium!.fontSize! - 2),
             )),
             DataCell(Text(
-              _tracerouteInfo.packetTime[2].toString(),
+              _tracerouteInfo.packetTime[1].toString(),
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   fontSize:
                       Theme.of(context).textTheme.bodyMedium!.fontSize! - 2),

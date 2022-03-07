@@ -14,5 +14,8 @@ class TracerouteInfoFactory extends TracerouteInfo {
       TracerouteInfoFactory(
           hopsNumber: int.tryParse(json['hopsNumber']) ?? 0,
           hopsIpAdress: json['hopsIpAdress'],
-          packetTime: (json['packetTime'] as List).cast<double>());
+          packetTime: (json['packetTime'] as List)
+              .map((_packetTime) =>
+                  double.tryParse(_packetTime.toString()) ?? 0.0)
+              .toList());
 }

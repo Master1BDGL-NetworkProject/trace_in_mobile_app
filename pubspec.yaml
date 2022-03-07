@@ -35,15 +35,15 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   flutter_riverpod: ^1.0.3
-  hive: ^2.0.6
+  hive: ^2.0.4
   hive_flutter: ^1.1.0
-  mockito: ^5.1.0
-  http: ^0.13.4
-  dartz: ^0.10.1
-  get_it: ^7.2.0
-  validators: ^3.0.0
-  url_launcher: ^6.0.20
   data_connection_checker_tv: ^0.3.5-nullsafety
+  dartz: ^0.10.0-nullsafety.2
+  mockito: ^5.0.10
+  http: ^0.13.3
+  url_launcher: ^6.0.20
+  validators: ^3.0.0
+  get_it: ^7.2.0
 
 dev_dependencies:
   flutter_test:
@@ -55,8 +55,10 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^1.0.0
-  hive_generator: ^1.1.2
-  build_runner: ^2.1.7
+  build_runner: ^2.0.6
+  hive_generator: ^1.1.0
+  dependency_validator: ^3.1.0
+  flutter_launcher_icons: "^0.9.2"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
