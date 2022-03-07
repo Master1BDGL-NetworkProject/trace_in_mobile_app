@@ -202,9 +202,6 @@ class _TracerouteFormState extends State<TracerouteForm> {
               .fold((error) => error, (_tracerouteInfos) => _tracerouteInfos);
       debugPrint(_result.toString());
       if (_result is List<TracerouteInfo>) {
-        _result.forEach((e) {
-          print(e.packetTime);
-        });
         showModalBottomSheet(
             context: context,
             builder: (_) => TracerouteInfoResultsTable(

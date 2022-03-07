@@ -41,6 +41,8 @@ class RemoteTracerouteInfoDatasourceImpl
         }
         return Left(Exception(_response.body));
       }
+    } on FormatException catch (_) {
+      return const Left(NoConnectionException());
     } catch (e, stack) {
       debugPrintStack(stackTrace: stack);
       return Left(Exception(e));

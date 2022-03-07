@@ -9,7 +9,7 @@ void showNetworkErrorSnackBar(BuildContext context) {
               topLeft: Radius.circular(15), topRight: Radius.circular(15))),
       backgroundColor: AppColors.errorColor,
       content: Text(
-        "Vous n'etes pas connecté à internet",
+        "Vous n'êtes pas connecté à internet",
         textAlign: TextAlign.center,
       )));
 }

@@ -92,13 +92,17 @@ class TracerouteInfoResultsTable extends StatelessWidget
                       Theme.of(context).textTheme.bodyMedium!.fontSize! - 2),
             )),
             DataCell(Text(
-              _tracerouteInfo.packetTime[0].toString().toString(),
+              _tracerouteInfo.packetTime[0] != 0.0
+                  ? _tracerouteInfo.packetTime[0].toString()
+                  : '*',
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   fontSize:
                       Theme.of(context).textTheme.bodyMedium!.fontSize! - 2),
             )),
             DataCell(Text(
-              _tracerouteInfo.packetTime[1].toString(),
+              _tracerouteInfo.packetTime[1] != 0.0
+                  ? _tracerouteInfo.packetTime[1].toString()
+                  : '*',
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   fontSize:
                       Theme.of(context).textTheme.bodyMedium!.fontSize! - 2),
