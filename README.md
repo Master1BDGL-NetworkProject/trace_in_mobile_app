@@ -1,16 +1,16 @@
-# trace_in_mobile_app
+# TraceIn 🔥
 
-A new Flutter project.
+TraceIn is a network app which allow to do some basics network operations
+This app has been developed for eduction purpose
 
-## Getting Started
+## Features
+Below supported **features**:
+  - [x] Dark Mode
+  - [x] Light Mode
+  - [x] Ping
+  - [x] Traceroute
 
-This project is a starting point for a Flutter application.
+## Contributions & Suggestions 🙌
+Feel you free to suggest any improvements or let's know any issues  
+Enjoy it🔥🔥!!
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
