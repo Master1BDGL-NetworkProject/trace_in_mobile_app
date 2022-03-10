@@ -12,23 +12,26 @@ class LightAppTheme implements IAppTheme {
       scaffoldBackgroundColor: AppColors.lightGrey,
       fontFamily: 'IBM Plex',
       textTheme: const TextTheme(
-        headlineMedium: TextStyle(
-            fontSize: AppSizes.header1,
-            color: AppColors.headerTextBlack,
-            fontWeight: FontWeight.w700),
-        bodyMedium: TextStyle(
-            fontSize: AppSizes.paragraph2,
-            color: AppColors.darkBlack,
-            fontWeight: FontWeight.w300),
-        titleMedium: TextStyle(
-            fontSize: AppSizes.paragraph2,
-            color: AppColors.textBlue,
-            fontWeight: FontWeight.w700),
-        bodySmall: TextStyle(
-            fontSize: AppSizes.paragraph1,
-            color: AppColors.darkBlack,
-            fontWeight: FontWeight.w300),
-      ),
+          headlineMedium: TextStyle(
+              fontSize: AppSizes.header1,
+              color: AppColors.headerTextBlack,
+              fontWeight: FontWeight.w700),
+          bodyMedium: TextStyle(
+              fontSize: AppSizes.paragraph2,
+              color: AppColors.darkBlack,
+              fontWeight: FontWeight.w300),
+          titleMedium: TextStyle(
+              fontSize: AppSizes.paragraph2,
+              color: AppColors.darkBlack,
+              fontWeight: FontWeight.w700),
+          bodySmall: TextStyle(
+              fontSize: AppSizes.paragraph1,
+              color: AppColors.darkBlack,
+              fontWeight: FontWeight.w300),
+          displayMedium: TextStyle(
+              fontSize: AppSizes.paragraph2,
+              color: AppColors.darkBlack,
+              fontWeight: FontWeight.w700)),
       buttonTheme: ButtonThemeData(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(AppSizes.buttonRadius)),

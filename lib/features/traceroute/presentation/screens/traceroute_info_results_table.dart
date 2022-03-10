@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/utils/info_results_interface.dart';
+import '../../../../presentation/widgets/table/table_display_widget.dart';
 import '../../domain/entities/traceroute_info.dart';
 
 class TracerouteInfoResultsTable extends StatelessWidget
     implements IInfoResults<TracerouteInfo> {
   final List<TracerouteInfo> tracerouteInfos;
-  const TracerouteInfoResultsTable({Key? key, required this.tracerouteInfos})
+  final String? hostEntered;
+  const TracerouteInfoResultsTable(
+      {Key? key, required this.tracerouteInfos, this.hostEntered})
       : super(key: key);
 
   @override
@@ -42,23 +45,11 @@ class TracerouteInfoResultsTable extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
-            decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
-                    bottomRight: Radius.circular(15),
-                    bottomLeft: Radius.circular(15)),
-                color: Theme.of(context).colorScheme.secondary),
-            child: Text('Traceroute: ${tracerouteInfos.first.hopsIpAdress}',
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.tertiary)),
-          ),
-          buildDataTable(context),
-        ],
-      ),
+      child: TableDisplay(
+          dataType: DataType.traceroute,
+          dataTableBuilder: buildDataTable,
+          ipAdress: tracerouteInfos.first.hopsIpAdress,
+          domaineName: hostEntered),
     );
   }
 

@@ -53,7 +53,7 @@ class Home extends ConsumerWidget {
           },
         ),
         IconButton(
-            onPressed: () => handleAbout(context),
+            onPressed: () => handleAbout(context, ref),
             icon: const ExtraButtonWidget(iconPath: AppAssets.aboutImage))
       ],
     );

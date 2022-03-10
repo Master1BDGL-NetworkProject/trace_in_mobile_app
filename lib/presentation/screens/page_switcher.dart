@@ -80,7 +80,7 @@ class _PageSwitcherState extends ConsumerState<PageSwitcher> {
           },
         ),
         IconButton(
-            onPressed: () => handleAbout(context),
+            onPressed: () => handleAbout(context, ref),
             icon: const ExtraButtonWidget(iconPath: AppAssets.aboutImage))
       ],
     );

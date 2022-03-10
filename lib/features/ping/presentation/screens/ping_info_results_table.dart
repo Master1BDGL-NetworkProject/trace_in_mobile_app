@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/utils/info_results_interface.dart';
+import '../../../../presentation/widgets/table/table_display_widget.dart';
 import '../../domain/entities/ping_info.dart';
 
 class PingInfoResultsTable extends StatelessWidget
     implements IInfoResults<PingInfo> {
   final List<PingInfo> pingInfos;
-  const PingInfoResultsTable({Key? key, required this.pingInfos})
+  final String? hostEntered;
+  const PingInfoResultsTable(
+      {Key? key, required this.pingInfos, this.hostEntered})
       : super(key: key);
 
   @override
@@ -42,23 +45,11 @@ class PingInfoResultsTable extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
-            decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
-                    bottomRight: Radius.circular(15),
-                    bottomLeft: Radius.circular(15)),
-                color: Theme.of(context).colorScheme.secondary),
-            child: Text('Ping: ${pingInfos.first.host}',
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.tertiary)),
-          ),
-          buildDataTable(context)
-        ],
-      ),
+      child: TableDisplay(
+          dataType: DataType.ping,
+          dataTableBuilder: buildDataTable,
+          ipAdress: pingInfos.first.host,
+          domaineName: hostEntered),
     );
   }
 

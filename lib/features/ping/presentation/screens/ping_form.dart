@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/exceptions/network/no_connection_exception.dart';
+import '../../../../core/extensions/string_validators/string_validators_extension.dart';
 import '../../../../core/utils/text_field_validators.dart';
 import '../../../../dependency_inversion.dart';
 import '../../../../presentation/widgets/button/button_widget.dart';
@@ -206,6 +207,9 @@ class _PingFormState extends State<PingForm> {
         showModalBottomSheet(
             context: context,
             builder: (_) => PingInfoResultsTable(
+                  hostEntered: _hostController.text.isIpAdress() != true
+                      ? _hostController.text
+                      : null,
                   pingInfos: _result,
                 ));
       } else if (_result is NoConnectionException) {
