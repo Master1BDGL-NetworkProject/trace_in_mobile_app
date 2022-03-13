@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trace_in_mobile_app/core/extensions/string_validators/string_validators_extension.dart';
 
 enum DataType { traceroute, ping }
 
@@ -25,11 +26,11 @@ class TableDisplay extends StatelessWidget {
               borderRadius: const BorderRadius.only(
                   bottomRight: Radius.circular(15),
                   bottomLeft: Radius.circular(15)),
-              color: Theme.of(context).colorScheme.tertiary),
+              color: Theme.of(context).colorScheme.background),
           child: Text(_displayLabel(dataType),
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  fontWeight: FontWeight.w300,
-                  color: Theme.of(context).colorScheme.primary)),
+                    fontWeight: FontWeight.w600,
+                  )),
         ),
         dataTableBuilder(context),
       ],
@@ -46,7 +47,7 @@ class TableDisplay extends StatelessWidget {
   }
 
   String _createCustomLabel() {
-    if (domaineName != null) {
+    if (domaineName != null && ipAdress.isIpAdress()) {
       return '$ipAdress($domaineName)';
     }
     return ipAdress;

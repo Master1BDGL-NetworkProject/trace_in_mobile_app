@@ -140,6 +140,7 @@ class _PageSwitcherState extends ConsumerState<PageSwitcher> {
 
   void _switchToScreenOfIndex(int index) {
     _pageController.animateToPage(index,
-        duration: const Duration(milliseconds: 700), curve: Curves.ease);
+        duration: const Duration(milliseconds: 900),
+        curve: Curves.linearToEaseOut);
   }
 }

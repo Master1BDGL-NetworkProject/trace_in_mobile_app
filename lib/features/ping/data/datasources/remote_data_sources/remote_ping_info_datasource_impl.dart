@@ -39,10 +39,15 @@ class RemotePingInfoDatasourceImpl implements IRemotePingInfoDatasource {
         }
         return Left(Exception(_response.body));
       }
+    } on FormatException catch (_) {
+      return const Left(NoConnectionException());
     } on SocketException catch (_) {
       return const Left(ConnectionTimedOutException());
     } catch (e, stack) {
       debugPrintStack(stackTrace: stack);
+      if (e.toString().contains('reset')) {
+        return const Left(NoConnectionException());
+      }
       return Left(Exception(e));
     }
   }

@@ -49,6 +49,9 @@ class RemoteTracerouteInfoDatasourceImpl
       return const Left(ConnectionTimedOutException());
     } catch (e, stack) {
       debugPrintStack(stackTrace: stack);
+      if (e.toString().contains('reset')) {
+        return const Left(NoConnectionException());
+      }
       return Left(Exception(e));
     }
   }

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../../core/theme/app_colors.dart';
 
-const noConnectionMessage = "Vous n'êtes pas connecté à internet";
+const noConnectionMessage =
+    "Vous n'êtes pas connecté à internet. Assurez vous de votre connectivité";
 const connectionTimedOutMessage = "Il se peut que le serveur soit injoingnable";
 const unknowMessage = "Quelque choses s'est mal passé ressayer plutard";
 
