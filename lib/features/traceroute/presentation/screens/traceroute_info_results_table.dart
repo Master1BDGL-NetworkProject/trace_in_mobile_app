@@ -8,8 +8,12 @@ class TracerouteInfoResultsTable extends StatelessWidget
     implements IInfoResults<TracerouteInfo> {
   final List<TracerouteInfo> tracerouteInfos;
   final String? hostEntered;
+  final String ipAdress;
   const TracerouteInfoResultsTable(
-      {Key? key, required this.tracerouteInfos, this.hostEntered})
+      {Key? key,
+      required this.ipAdress,
+      required this.tracerouteInfos,
+      this.hostEntered})
       : super(key: key);
 
   @override
@@ -48,7 +52,7 @@ class TracerouteInfoResultsTable extends StatelessWidget
       child: TableDisplay(
           dataType: DataType.traceroute,
           dataTableBuilder: buildDataTable,
-          ipAdress: tracerouteInfos.first.hopsIpAdress,
+          ipAdress: ipAdress,
           domaineName: hostEntered),
     );
   }

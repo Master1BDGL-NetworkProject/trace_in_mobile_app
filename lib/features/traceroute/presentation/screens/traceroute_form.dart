@@ -207,6 +207,7 @@ class _TracerouteFormState extends State<TracerouteForm> {
         showModalBottomSheet(
             context: context,
             builder: (_) => TracerouteInfoResultsTable(
+                  ipAdress: _hostController.text,
                   hostEntered: _hostController.text.isIpAdress() != true
                       ? _hostController.text
                       : null,
