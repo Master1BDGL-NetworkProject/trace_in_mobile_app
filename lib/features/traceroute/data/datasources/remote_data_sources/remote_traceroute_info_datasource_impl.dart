@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
+import '../../../../../core/exceptions/network/connection_timed_out_exception.dart';
 import '../../../../../core/exceptions/network/no_connection_exception.dart';
 import '../../../../../core/utils/api_urls.dart';
 import '../../../../../core/utils/network_info/network_info_interface.dart';
@@ -43,6 +45,8 @@ class RemoteTracerouteInfoDatasourceImpl
       }
     } on FormatException catch (_) {
       return const Left(NoConnectionException());
+    } on SocketException catch (_) {
+      return const Left(ConnectionTimedOutException());
     } catch (e, stack) {
       debugPrintStack(stackTrace: stack);
       return Left(Exception(e));

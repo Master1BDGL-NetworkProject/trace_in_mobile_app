@@ -70,7 +70,7 @@ class PingInfoResultsTable extends StatelessWidget
                 }),
                 cells: [
                   DataCell(Text(
-                    _pingInfo.sequenceNo.toString(),
+                    (_pingInfo.sequenceNo + 1).toString(),
                     style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         fontSize:
                             Theme.of(context).textTheme.bodyMedium!.fontSize! -

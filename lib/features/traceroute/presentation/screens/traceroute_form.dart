@@ -2,8 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
+import '../../../../core/exceptions/network/connection_timed_out_exception.dart';
 import '../../../../core/exceptions/network/no_connection_exception.dart';
-import 'package:trace_in_mobile_app/core/extensions/string_validators/string_validators_extension.dart';
+import '../../../../core/extensions/string_validators/string_validators_extension.dart';
 import '../../../../core/utils/text_field_validators.dart';
 import '../../../../dependency_inversion.dart';
 import '../../../../presentation/widgets/button/button_widget.dart';
@@ -212,7 +213,11 @@ class _TracerouteFormState extends State<TracerouteForm> {
                   tracerouteInfos: _result,
                 ));
       } else if (_result is NoConnectionException) {
-        showNetworkErrorSnackBar(context);
+        showNetworkErrorSnackBar(context, noConnectionMessage);
+      } else if (_result is ConnectionTimedOutException) {
+        showNetworkErrorSnackBar(context, connectionTimedOutMessage);
+      } else {
+        showNetworkErrorSnackBar(context, unknowMessage);
       }
     }
   }

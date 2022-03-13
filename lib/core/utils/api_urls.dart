@@ -7,8 +7,8 @@ abstract class IApiUrls {
 }
 
 class ApiUrlImpl implements IApiUrls {
-  final String _pingUrl = 'http://3.91.96.44:8080/ping';
-  final String _tracerouteUrl = 'http://3.91.96.44:8080/traceroute';
+  final String _pingUrl = 'http://52.91.105.103:8080/ping';
+  final String _tracerouteUrl = 'http://52.91.105.103:8080/traceroute';
 
   @override
   String get pingUrl => _pingUrl;

@@ -25,11 +25,11 @@ class TableDisplay extends StatelessWidget {
               borderRadius: const BorderRadius.only(
                   bottomRight: Radius.circular(15),
                   bottomLeft: Radius.circular(15)),
-              color: Theme.of(context).colorScheme.secondary),
+              color: Theme.of(context).colorScheme.tertiary),
           child: Text(_displayLabel(dataType),
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.tertiary)),
+                  fontWeight: FontWeight.w300,
+                  color: Theme.of(context).colorScheme.primary)),
         ),
         dataTableBuilder(context),
       ],

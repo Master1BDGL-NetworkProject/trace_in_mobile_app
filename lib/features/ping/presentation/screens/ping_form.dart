@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trace_in_mobile_app/core/exceptions/network/connection_timed_out_exception.dart';
 
 import '../../../../core/exceptions/network/no_connection_exception.dart';
 import '../../../../core/extensions/string_validators/string_validators_extension.dart';
@@ -213,7 +214,11 @@ class _PingFormState extends State<PingForm> {
                   pingInfos: _result,
                 ));
       } else if (_result is NoConnectionException) {
-        showNetworkErrorSnackBar(context);
+        showNetworkErrorSnackBar(context, noConnectionMessage);
+      } else if (_result is ConnectionTimedOutException) {
+        showNetworkErrorSnackBar(context, connectionTimedOutMessage);
+      } else {
+        showNetworkErrorSnackBar(context, unknowMessage);
       }
     }
   }

@@ -25,17 +25,20 @@ class PageSwitcher extends ConsumerStatefulWidget {
 
 class _PageSwitcherState extends ConsumerState<PageSwitcher> {
   late final StreamController<int> _screenConroller;
+  late final PageController _pageController;
   late int _pageIndex;
 
   @override
   void initState() {
     super.initState();
     _screenConroller = StreamController.broadcast();
+    _pageController = PageController();
   }
 
   @override
   void dispose() {
     _screenConroller.close();
+    _pageController.dispose();
     super.dispose();
   }
 
@@ -46,12 +49,13 @@ class _PageSwitcherState extends ConsumerState<PageSwitcher> {
     return Scaffold(
       appBar: _buildAppBar(context, ref),
       bottomNavigationBar: _buildBottomNavigationBar(context, _pageIndex),
-      body: StreamBuilder<int>(
-          stream: _screenConroller.stream,
-          initialData: _pageIndex,
-          builder: (context, screenStatus) {
-            return _buildViews(screenStatus.data!);
-          }),
+      body: PageView.builder(
+        controller: _pageController,
+        physics: const NeverScrollableScrollPhysics(),
+        itemBuilder: (context, screenIndex) {
+          return _buildViews(screenIndex);
+        },
+      ),
     );
   }
 
@@ -131,5 +135,11 @@ class _PageSwitcherState extends ConsumerState<PageSwitcher> {
 
   void _handleOnPresedOnNavigationBarItem(int index) {
     _screenConroller.add(index);
+    _switchToScreenOfIndex(index);
+  }
+
+  void _switchToScreenOfIndex(int index) {
+    _pageController.animateToPage(index,
+        duration: const Duration(milliseconds: 900), curve: Curves.ease);
   }
 }
